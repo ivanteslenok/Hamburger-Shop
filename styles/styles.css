@@ -1,0 +1,25 @@
+#toppingTable:first-child,
+#stuffingTable:first-child,
+#toppingTable:nth-child(2),
+#stuffingTable:nth-child(2) {
+	width: 50%;
+}
+
+#toppingTable:nth-child(3),
+#stuffingTable:nth-child(3) {
+	width: auto;
+}
+
+#bill {
+	width: 150px;
+	margin: 0 auto;
+}
+
+#bill th,
+#bill caption {
+	text-align: center;
+}
+
+#bill .detail {
+	text-align: right;
+}

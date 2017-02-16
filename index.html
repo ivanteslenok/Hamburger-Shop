@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hamburger</title>
+    <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link  href="styles/styles.css" rel="stylesheet" />
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>    
+    <script src="js/hamburger.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/sizeSelector.js"></script>
+    <script src="js/hamburgerShop.js"></script>    
+    <script src="js/infoBlock.js"></script>  
+    <script src="js/totalInfo.js"></script>
+    <script src="js/menus.js"></script>
+    <script src="js/tables.js"></script>    
+    <script src="js/bill.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Hamburger Shop</h1>
+        </div>
+        <div id="newHamburger" class="jumbotron"  style="display: block;">
+            <h2 class="text-center">Select the size</h2>
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <button class="btn btn-lg btn-primary" id="selectSmallSize">Small</button>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <button class="btn btn-lg btn-primary" id="selectLargeSize">Large</button>
+                </div>
+            </div>
+        </div>
+        <div id="hamburgerFilling" style="display: none;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <dl class="dl-horizontal"
+                        style="border-bottom: 1px solid #999; margin-bottom: 5px; padding-bottom: 5px;">
+                        <dt>Size</dt>
+                        <dd id="infoBlockSize"></dd>
+                        <dt>Toppings</dt>
+                        <dd id="infoBlockToppings"></dd>
+                        <dt>Stuffings</dt>
+                        <dd id="infoBlockStuffings"></dd>
+                        <dt>Calories</dt>
+                        <dd id="infoBlockCalories"></dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Price</dt>
+                        <dd id="infoBlockPrice"></dd>
+                    </dl>
+                </div>
+                <div class="col-xs-8 text-right">
+                    <button id="buyItButton" class="btn btn-lg btn-success">
+                        <span class="glyphicon glyphicon-shopping-cart"
+                            style="padding-right: 10px;"></span>
+                        Buy It!
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Topping</h4>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <div class="btn-group">
+                                        <button id="toppingButton" class="btn btn-success dropdown-toggle" 
+                                        		type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add Topping <span class="caret"></span>
+                                        </button>
+                                        <ul id="toppingMenu" class="dropdown-menu">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th width="50%">Name</th>
+                                    <th width="50%">Price</th>
+                                    <th width="auto"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="toppingTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Stuffing</h4>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <div class="btn-group">
+                                        <button id="stuffingButton" class="btn btn-success dropdown-toggle" 
+                                        		type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add Stuffing <span class="caret"></span>
+                                        </button>
+                                        <ul id="stuffingMenu" class="dropdown-menu">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+								<th width="50%">Name</th>
+                                <th width="50%">Price</th>
+                                <th width="auto"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="stuffingTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid #bbb; margin-bottom: 20px;"></div>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-8 control-label text-right" for="count">Count:</label>
+                            <div class="col-xs-4">
+                                <input type="number" class="form-control" id="count" value="1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-8 control-label text-right" for="count">Total:</label>
+                            <div id="totalPrice" class="col-xs-4 form-control-static text-center">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <table id="bill" class="table table-condensed" hidden>
+            <caption>The bill</caption>
+        	<tbody>        		
+                <th colspan="2">Toppings</th>                
+        		<tr class="billToppings">
+        			<td class="name info"></td>
+                    <td class="detail info"></td>
+        		</tr>
+
+        		<th colspan="2">Stuffings</th>
+        		<tr class="billStuffings">        			
+                    <td class="name info"></td>
+                    <td class="detail info"></td>
+        		</tr>
+
+        		<th colspan="2">Size</th>
+        		<tr id="billSize">
+        			<td class="name info"></td>
+                    <td class="detail info"></td>
+        		</tr>
+
+        		<tr id="billPrice">
+        			<td class="name warning">Price</td>
+                    <td class="detail warning"></td>
+        		</tr>
+        		<tr id="billCount">
+        			<td class="name danger">Count</td>
+                    <td class="detail danger"></td>
+        		</tr>
+        		<tr id="billTotal">
+        			<td class="name danger">Total</td>
+                    <td class="detail danger"></td>
+        		</tr>
+        	</tbody>
+        </table>
+    </div>
+</body>
+</html>
