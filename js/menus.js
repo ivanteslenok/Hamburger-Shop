@@ -1,42 +1,26 @@
-var ToppingMenu = (function() {
-    function ToppingMenu() {
-        this._menu = $('#toppingMenu');
-        this._menuItem = this.createLi();
-    }
+var Menu = (function() {
+    function Menu() {}
 
-    ToppingMenu.prototype.createLi = function() {
-        var li = $('<li>');
-        var a = $('<a>');
-
-        a.attr('href', 'javascript:void(0)')
-            .appendTo(li);
-
-        return li;
+    Menu.prototype.createLi = function() {
+        return $('<li><a href="javascript:void(0)"></li>');
     };
 
-    ToppingMenu.prototype.createMenuItem = function(itemName) {
-        var cloneMenuItem = this._menuItem.clone();
-
-        cloneMenuItem.children('a')
-            .text(itemName);
-
-        this._menu.append(cloneMenuItem);
+    Menu.prototype.createMenuItem = function(itemName) {
+        this._menuItem.clone()
+            .children('a')
+            .text(itemName)
+            .end()
+            .appendTo(this._$menu);
     };
 
-    ToppingMenu.prototype.removeMenuItem = function(item) {
+    Menu.prototype.removeMenuItem = function(item) {
         item.remove();
     };
 
-    ToppingMenu.prototype.createMenu = function() {
-        for (var i = 0; i < Hamburger.ALL_TOPPINGS.length; i++) {
-            this.createMenuItem(Hamburger.ALL_TOPPINGS[i].name);
-        }
-    };
-
-    ToppingMenu.prototype.onMenuItemClick = function(hamburger, table, infoBlock, totalInfo) {
+    Menu.prototype.onMenuItemClick = function(hamburger, table, infoBlock, totalInfo) {
         var that = this;
 
-        this._menu.on('click', 'a', function(event) {
+        this._$menu.on('click', 'a', function(event) {
             var target = $(event.target);
 
             that.removeMenuItem(target);
@@ -44,8 +28,26 @@ var ToppingMenu = (function() {
             table.createTableItem(target, hamburger);
 
             infoBlock.updateInfo();
+
             totalInfo.updateTotalInfo();
         });
+    };
+
+    return Menu;
+})();
+
+var ToppingMenu = (function() {
+    function ToppingMenu() {
+        this._$menu = $('#toppingMenu');
+        this._menuItem = this.createLi();
+    }
+
+    ToppingMenu.prototype = Object.create(Menu.prototype);
+
+    ToppingMenu.prototype.createMenu = function() {
+        for (var i = 0; i < Hamburger.ALL_TOPPINGS.length; i++) {
+            this.createMenuItem(Hamburger.ALL_TOPPINGS[i].name);
+        }
     };
 
     return ToppingMenu;
@@ -53,11 +55,11 @@ var ToppingMenu = (function() {
 
 var StuffingMenu = (function() {
     function StuffingMenu() {
-        this._menu = $('#stuffingMenu');
+        this._$menu = $('#stuffingMenu');
         this._menuItem = this.createLi();
     }
 
-    StuffingMenu.prototype = Object.create(ToppingMenu.prototype);
+    StuffingMenu.prototype = Object.create(Menu.prototype);
 
     StuffingMenu.prototype.createMenu = function() {
         for (var i = 0; i < Hamburger.ALL_STUFFINGS.length; i++) {

@@ -1,42 +1,39 @@
 var TotalInfo = (function() {
     function TotalInfo(hamburger) {
-        this._totalPrice = $('#totalPrice');
-        this._count = $('#count');
-        this._hamburger = hamburger;
+        var $totalPrice = $('#totalPrice');
+        var $count = $('#count');
         var that = this;
 
-        this._count.on('input', function() {
-            if (that._count.val() < 1) {
-                that._count.val(1);
-            } else if (that._count.val() > 50) {
-                that._count.val(50);
+        var calculateTotalPrice = function() {
+            return hamburger.calculatePrice() * $count.val();
+        };
+
+        this.updateTotalInfo = function() {
+            $totalPrice.text('$' + calculateTotalPrice().toFixed(2));
+        };
+
+        this.getCount = function() {
+            return $count.val();
+        };
+
+        this.getTotalPrice = function() {
+            return calculateTotalPrice();
+        };
+
+        $count.on('input', function() {
+            if ($count.val() < 1) {
+                $count.val(1);
+            } else if ($count.val() > 50) {
+                $count.val(50);
             }
         });
 
-        this._count.on('blur', function() {
+        $count.on('blur', function() {
             that.updateTotalInfo();
         });
 
         this.updateTotalInfo();
     }
-
-    TotalInfo.prototype = {
-        calculateTotalPrice: function() {
-            return this._hamburger.calculatePrice() * this._count.val();
-        },
-
-        updateTotalInfo: function() {
-            this._totalPrice.text('$' + this.calculateTotalPrice().toFixed(2));
-        },
-
-        getCount: function() {
-            return this._count.val();
-        },
-
-        getTotalPrice: function() {
-            return this.calculateTotalPrice();
-        }
-    };
 
     return TotalInfo;
 })();
